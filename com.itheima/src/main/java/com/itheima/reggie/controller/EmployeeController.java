@@ -103,7 +103,7 @@ public class EmployeeController {
     @GetMapping("/page")
     public R<Page> page(int page,int pageSize,String name){
         //构造分页构造器
-        Page pageInfo = new Page(page.pageSize);
+        Page pageInfo = new Page(page,pageSize);
 
         //构造条件构造器
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
@@ -127,6 +127,8 @@ public class EmployeeController {
 //        Long empId = (Long)request.getSession().getAttribute("emploee");
 //        employee.setUpdateTime(LocalDateTime.now());
 //        employee.setUpdateUser(empId);
+        Long id = Thread.currentThread().getId();
+        log.info("线程id为：{}",id);
         employeeService.updateById(employee);
         return R.success("员工信息修改成功！");
     }
